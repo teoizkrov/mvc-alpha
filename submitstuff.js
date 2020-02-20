@@ -1,35 +1,26 @@
-/*const loginform = document.getElementById( 'form' );
+document.getElementById( 'formid' ).addEventListener( 'submit', postInfo );
 
-loginform.addEventListener('submit', (e) => {
-    e.preventDefault();
+function postInfo(event) 
+{
+    event.preventDefault();
+    let user = document.getElementById( 'username' ).value;
+    let pass = document.getElementById( 'password' ).value;
 
-    const formData = new FormData( this );
-
-    fetch( 'login.php', {
-        method: 'post',
-        body: formData
-    }).then( response => {
-        response.text(); 
-    }).catch( error => {
-        console.error( error );
+    const myPost = {
+        ucid: user,
+        password: pass
+    }
+    
+    fetch( 'login.php' , {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify( myPost )    
     })
+    .then( (response) => response.json() )
+    .then( (data) => console.log(data) )
+    .catch( (error) => console.error(error) );
 
-});
-*/
-const loginform = document.getElementById( 'formid' );
 
-loginform.addEventListener( 'submit', function( e ) {
-	e.preventDefault();
-	const formData = new FormData( this );
-
-	fetch( 'login.php', {
-		method: 'post',
-		body: formData
-		
-	}).then( function (response) {
-		return response.text
-	}).catch( function (error) {
-		console.error( error )
-	})
-});
-
+}
